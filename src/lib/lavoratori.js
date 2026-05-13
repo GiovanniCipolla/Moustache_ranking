@@ -24,7 +24,7 @@ export const lavoratori = [
 		ruolo: 'Solo Qualità',
 		emoji: '🔥',
 		colore: '#e67e22',
-		punti: 72,
+		punti: 49,
 		tagline: 'Ha rimandato indietro un piatto tre volte. Era il suo. Non accetta compromessi, non abbassa gli standard. Solo qualità — e lo ripete spesso, nel caso non fosse chiaro.'
 	},
 	{
@@ -36,20 +36,28 @@ export const lavoratori = [
 		tagline: 'Rotola, gira, a volte sbanda. Ma alla fine arriva sempre a destinazione. La forza di un\'intera carrozza su quattro ruote solide.'
 	},
 	{
-		nome: 'Cips',
-		ruolo: 'Il Capitano',
-		emoji: '🥔',
-		colore: '#f39c12',
-		punti: 45,
-		tagline: 'Prende decisioni. Dà ordini. A volte vengono anche seguiti. Il Capitano non discute, il Capitano comanda — con o senza nave in vista.'
+		nome: 'Alessia',
+		ruolo: 'La Permalosa',
+		emoji: '🌱',
+		colore: '#27ae60',
+		punti: 47,
+		tagline: 'Non è arrabbiata. Va tutto bene. Stava solo guardando nel vuoto. Non gliene importa niente. Giura. Non chiedere più.'
 	},
 	{
 		nome: 'Sgrollo',
 		ruolo: 'Il Fuoriclasse',
 		emoji: '👻',
 		colore: '#9b59b6',
-		punti: 33,
+		punti: 45,
 		tagline: 'Tecnicamente fuoriclasse. Operativamente in corso d\'opera. Il talento c\'è — lo conferma lui stesso ogni giorno, con grande e sobria modestia.'
+	},
+	{
+		nome: 'Cips',
+		ruolo: 'Il Capitano',
+		emoji: '🥔',
+		colore: '#f39c12',
+		punti: 39,
+		tagline: 'Prende decisioni. Dà ordini. A volte vengono anche seguiti. Il Capitano non discute, il Capitano comanda — con o senza nave in vista.'
 	},
 	{
 		nome: 'Rita',
@@ -66,14 +74,6 @@ export const lavoratori = [
 		colore: '#ff6b6b',
 		punti: 14,
 		tagline: 'Segue una logica tutta sua. Incomprensibile, originale, a volte geniale. L\'universo la capisce — noi ci stiamo ancora lavorando.'
-	},
-	{
-		nome: 'Alessia',
-		ruolo: 'La Permalosa',
-		emoji: '🌱',
-		colore: '#27ae60',
-		punti: 13,
-		tagline: 'Non è arrabbiata. Va tutto bene. Stava solo guardando nel vuoto. Non gliene importa niente. Giura. Non chiedere più.'
 	},
 	{
 		nome: 'Mattia',
