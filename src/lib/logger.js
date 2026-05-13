@@ -19,6 +19,43 @@ function dispositivo() {
 	return '🖥️ Desktop';
 }
 
+function browser() {
+	const ua = navigator.userAgent;
+	if (/Edg\//i.test(ua)) return 'Edge';
+	if (/OPR\//i.test(ua)) return 'Opera';
+	if (/Chrome\//i.test(ua)) return 'Chrome';
+	if (/Firefox\//i.test(ua)) return 'Firefox';
+	if (/Safari\//i.test(ua)) return 'Safari';
+	return 'Sconosciuto';
+}
+
+function os() {
+	const ua = navigator.userAgent;
+	if (/Windows NT 10/i.test(ua)) return 'Windows 10/11';
+	if (/Windows/i.test(ua)) return 'Windows';
+	if (/iPhone OS/i.test(ua)) return 'iOS';
+	if (/Android/i.test(ua)) return 'Android';
+	if (/Mac OS X/i.test(ua)) return 'macOS';
+	if (/Linux/i.test(ua)) return 'Linux';
+	return 'Sconosciuto';
+}
+
+async function geoip() {
+	try {
+		const res = await fetch('https://ipapi.co/json/');
+		if (!res.ok) return null;
+		const d = await res.json();
+		return {
+			ip: d.ip ?? '—',
+			citta: d.city ?? '—',
+			paese: d.country_name ?? '—',
+			provider: d.org ?? '—'
+		};
+	} catch {
+		return null;
+	}
+}
+
 async function send(payload) {
 	if (!WEBHOOK) return;
 	try {
@@ -31,20 +68,34 @@ async function send(payload) {
 }
 
 /** Logga una visita al sito. Una sola volta per sessione. */
-export function logVisita() {
+export async function logVisita() {
 	if (typeof sessionStorage === 'undefined') return;
 	if (sessionStorage.getItem('moustache_visit_logged')) return;
 	sessionStorage.setItem('moustache_visit_logged', '1');
+
+	const geo = await geoip();
+
+	const fields = [
+		{ name: '📅 Quando', value: ora(), inline: true },
+		{ name: '💻 Dispositivo', value: dispositivo(), inline: true },
+		{ name: '🌐 Browser', value: browser(), inline: true },
+		{ name: '💿 OS', value: os(), inline: true }
+	];
+
+	if (geo) {
+		fields.push(
+			{ name: '📍 Posizione', value: `${geo.citta}, ${geo.paese}`, inline: true },
+			{ name: '🔌 Provider', value: geo.provider, inline: true },
+			{ name: '🕵️ IP', value: `\`${geo.ip}\``, inline: true }
+		);
+	}
 
 	send({
 		embeds: [
 			{
 				title: '🥸 Nuova visita · Moustache Wall of Fame',
 				color: 0xc8832a,
-				fields: [
-					{ name: '📅 Quando', value: ora(), inline: true },
-					{ name: '💻 Dispositivo', value: dispositivo(), inline: true }
-				]
+				fields
 			}
 		]
 	});
