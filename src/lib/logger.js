@@ -26,7 +26,7 @@ function browser() {
 	if (/Chrome\//i.test(ua)) return 'Chrome';
 	if (/Firefox\//i.test(ua)) return 'Firefox';
 	if (/Safari\//i.test(ua)) return 'Safari';
-	return 'Sconosciuto';
+	return '—';
 }
 
 function os() {
@@ -37,7 +37,7 @@ function os() {
 	if (/Android/i.test(ua)) return 'Android';
 	if (/Mac OS X/i.test(ua)) return 'macOS';
 	if (/Linux/i.test(ua)) return 'Linux';
-	return 'Sconosciuto';
+	return '—';
 }
 
 async function geoip() {
@@ -75,27 +75,20 @@ export async function logVisita() {
 
 	const geo = await geoip();
 
-	const fields = [
-		{ name: '📅 Quando', value: ora(), inline: true },
-		{ name: '💻 Dispositivo', value: dispositivo(), inline: true },
-		{ name: '🌐 Browser', value: browser(), inline: true },
-		{ name: '💿 OS', value: os(), inline: true }
-	];
-
-	if (geo) {
-		fields.push(
-			{ name: '📍 Posizione', value: `${geo.citta}, ${geo.paese}`, inline: true },
-			{ name: '🔌 Provider', value: geo.provider, inline: true },
-			{ name: '🕵️ IP', value: `\`${geo.ip}\``, inline: true }
-		);
-	}
-
 	send({
 		embeds: [
 			{
 				title: '🥸 Nuova visita · Moustache Wall of Fame',
 				color: 0xc8832a,
-				fields
+				fields: [
+					{ name: '📅 Quando', value: ora(), inline: true },
+					{ name: '💻 Dispositivo', value: dispositivo(), inline: true },
+					{ name: '🌐 Browser', value: browser(), inline: true },
+					{ name: '💿 OS', value: os(), inline: true },
+					{ name: '📍 Posizione', value: geo ? `${geo.citta}, ${geo.paese}` : '—', inline: true },
+					{ name: '🔌 Provider', value: geo ? geo.provider : '—', inline: true },
+					{ name: '🕵️ IP', value: geo ? `\`${geo.ip}\`` : '—', inline: true }
+				]
 			}
 		]
 	});
